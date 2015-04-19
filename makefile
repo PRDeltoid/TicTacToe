@@ -1,10 +1,14 @@
 all: TicTacToe
 
-TicTacToe: main.o
-	g++  main.o -o TicTacToe -LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+TicTacToe: main.o game.o
+	g++  obj/main.o -o TicTacToe -LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
-	g++ -c main.cpp -ISFML/include 
+	g++ -c main.cpp -o obj/main.o -ISFML/include 
+
+game.o: src/game.cpp
+	g++ -c src/game.cpp -o obj/game.o
 
 clean:
-	rm *o main
+	del obj /q
+	del TicTacToe.exe
