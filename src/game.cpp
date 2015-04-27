@@ -107,24 +107,21 @@ void Game::Loop() {
                 this->Click(event.mouseButton.x, event.mouseButton.y);
                 //If the game is running, check for gameover conditions (win, stalemate) and switch players if needed
                 if (game_state == ONEPLAYER || game_state == TWOPLAYER) { 
-                    //Check for a stalemate 
-                    if(this->Check_Stalemate() == true) {
-                        game_state = STALEMATE;
-                        std::cout << "Draw found" << std::endl;
-                    }
-                    //Check for a win
+                    //Check for winner
                     if(this->Check_For_Winner() == true) {
                         game_state = WIN;
-                        std::cout << "Winner: " << current_player << std::endl;
-                    }
-                    //Switch players if game is not over and the last move was valid (ie. it was not on an already-played space)
-                    if(game_state == TWOPLAYER && last_move == VALID)
+                    //Check for a stalemate 
+                    } else if(this->Check_Stalemate() == true) {
+                        game_state = STALEMATE;
+                    //Switch players if game is not over and the last move was legal/valid 
+                    } else if(game_state == TWOPLAYER && last_move == VALID) {
                         this->Switch_Player(); 
+                    }
                 }
             }
         }
         this->Clear();  //Clear the board
-        this->Draw();   //Draw, depending in current game state
+        this->Draw();   //Draw, depending on current game state
         this->Show();   //Show the drawing
     }
 }
@@ -247,7 +244,6 @@ void Game::Finished_Click(int mouse_x, int mouse_y) {
        mouse_x < restart_text.getGlobalBounds().left + restart_text.getLocalBounds().width &&
        mouse_y > restart_text.getGlobalBounds().top &&
        mouse_y < restart_text.getGlobalBounds().top + restart_text.getLocalBounds().height) {
-        std::cout << "Restart clicked" << std::endl;
         this->Restart();
     }
 

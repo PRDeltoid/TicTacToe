@@ -6,8 +6,12 @@
 #include <string>
 #include <sstream>
 
-#define BOARDSIZE 3
-#define SQUARESIZE 200
+//Height or Width of Window Size (Window is Square)
+const int WINDOWSIZE = 800;
+//Height or Width of board size
+const int BOARDSIZE = 3;
+//Size of each tictactoe square
+const int SQUARESIZE = WINDOWSIZE/BOARDSIZE;
 
 struct Space {
     sf::RectangleShape shape;
@@ -47,7 +51,7 @@ class Game
         bool Check_For_Winner();
         void Switch_Player();
     private:
-        Space spaces[9];
+        Space spaces[BOARDSIZE*BOARDSIZE];
         sf::RenderWindow window;
         int current_player;
         Pos last_played_pos;
